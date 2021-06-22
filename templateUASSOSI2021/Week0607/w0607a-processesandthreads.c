@@ -12,7 +12,15 @@ int idmaster = 0;
 int rPID, rPPID, id1000, offset=1000;
 
 void* trit (void* a) {
-
+   int id;
+   id = idmaster++;
+   while(TRUE){
+    rehat_acak(T_REHAT);
+    int detik = random() % T_REHAT;
+    detik = detik % 1000L;
+    printf("PID[%d] \t ThreadID[%d] \t Delay(ms)[%04d] \n",rPID, id, detik);
+    // printf("PID[%d] \t ThreadID[%d] \n",rPID, id);
+  }
 }
 
 
@@ -29,6 +37,23 @@ int main(int argc, char * argv[])
    printf("The input N is : %d \n", n);
    printf("The input T is : %d \n", t);
 
+   rPID=getpid()-id1000+offset;
+   for (int i = 0; i < n; ++i)
+   {
+      temp=fork();
+      if(temp==0){
+         rPID=getpid()-id1000+offset;
+      }else{
+         rPID=getpid()-id1000+offset;
+      }
+   }
+   
+   for (int i = 0; i < t; ++i)
+   {
+      daftar_trit(trit);
+   }
+
+  jalankan_trit();
 
    beberes_trit("Selesai...");
 }

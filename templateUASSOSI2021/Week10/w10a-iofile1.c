@@ -13,21 +13,28 @@
 void main(void) {
    int n, off, ofd;
    char text[100];
-   ofd = open (OFILE, O_RDWR | O_CREAT | O_TRUNC, 0644);
-   scanf("%d\n", &n);
-
+   ofd = open (OFILE, O_RDWR | O_CREAT, 0644);
+   scanf("%d", &n);
+   int count = 0;
    for(int i = 0; i < n; i++){
-      char mod[1];
-      scanf("%s %d %d", text, &off, &mod);
+      char mod[100];
+      scanf("%s %d %s", text, &off, mod);
       int textsize = strlen(text);
-      if (mod == "A") {
+      int a = strcmp(mod,"A");  
+      int t = strcmp(mod,"T");
+      if (a == 0) {
+      	 lseek(ofd, count, SEEK_SET);
+         write(ofd, text, textsize);
+         count += textsize;
+         a = 0;
+      }
+      else if (t == 0) {
          lseek(ofd, off, SEEK_SET);
          write(ofd, text, textsize);
+         t = 0;
       }
-      else if (mod == "T") {
-         lseek(ofd, off, SEEK_SET);
-         write(ofd, text, textsize);
-      }
-   close(ofd);
+   }
    printf("Please see file %s\n", OFILE);
+   close(ofd);
 }
+

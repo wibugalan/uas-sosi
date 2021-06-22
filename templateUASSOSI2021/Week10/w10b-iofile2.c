@@ -11,15 +11,14 @@
 
 void main(void) {
    int n, off, id, ofd1, ofd2;
-   
    ofd1 = open(OFILE1, O_RDWR | O_CREAT, 0644);
-	ofd2 = open(OFILE2, O_RDWR | O_CREAT, 0644);
+   ofd2 = open(OFILE2, O_RDWR | O_CREAT, 0644);
    scanf("%d", &n);
-	for (int i = 1; i < n; i++){
-	   char str[100];
-	   scanf("%s %d %d", str, &off, &id);
-	   int size = strlen(str);
-		if(id==1){
+	for (int i = 0; i < n; i++){
+	    char str[100];
+	    scanf("%s %d %d", str, &off, &id);
+	    int size = strlen(str);
+	    if(id==1){
 	     	lseek(ofd1, off, SEEK_SET);
 	        write(ofd1, str, size);
 	    }
@@ -29,8 +28,8 @@ void main(void) {
 	    }
 	}
    close(ofd1);
-	close(ofd2);
+   close(ofd2);
    printf("Please see file %s\n", OFILE1);
    printf("Please see file %s\n", OFILE2);
-   
+
 }

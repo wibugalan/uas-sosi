@@ -11,6 +11,10 @@
 int idmaster = 0;
 int sharedInt = 0;
 
+int randomNumber(){
+	int num = (rand() % (5-1+1)) + 1;
+	return angkaRandom;
+}
 
 void* adder (void* a) {
 

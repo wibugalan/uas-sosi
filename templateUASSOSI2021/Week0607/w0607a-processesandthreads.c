@@ -16,7 +16,10 @@ void* trit (void* a) {
    id = idmaster++;
    while(TRUE){
     rehat_acak(T_REHAT);
-    printf("PID[%d] \t ThreadID[%d] \t Delay(ms)[%d] \n",rPID, id, tim);
+    int detik = random() % T_REHAT;
+    detik = detik % 1000L;
+    printf("PID[%d] \t ThreadID[%d] \t Delay(ms)[%04d] \n",rPID, id, detik);
+    // printf("PID[%d] \t ThreadID[%d] \n",rPID, id);
   }
 }
 

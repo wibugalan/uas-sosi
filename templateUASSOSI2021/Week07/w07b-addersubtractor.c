@@ -79,9 +79,10 @@ int main(int argc, char * argv[])
    scanf("%d", &n);
    printf("The input N is : %d \n", n);
    sem_init(&obs_sem, 0, 1);
-   daftar_trit(observer);
+   
    daftar_trit(adder);
    daftar_trit(substractor);
+   daftar_trit(observer);
 
    jalankan_trit();
    beberes_trit("Selesai...");

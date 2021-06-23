@@ -67,15 +67,18 @@ void* consumer (void* a) {
 			sleep(1);
 		}
 		rehat_acak(T_REHAT);
-		int random= (rand()%999)+1;
-      rr = random;
+		//int random= (rand()%999)+1;
+      		//rr = random;
 		sem_wait (&(mymap->buffmutex));
-
-		(mymap->buffer)[mymap->buffsize - 1] = 0;
+		if ((mymap->buffsize)==0){
+        	
+      		}
+      		else {
+      		(mymap->buffer)[mymap->buffsize - 1] = 0;
 		mymap->buffsize = mymap->buffsize - 1;
 		printf("PID[%4.4d] \t Thread[%4.4d] \t CONSUME %3.3d \t BUFFERSIZE [%4.4d]\n", 
-			getpid(),id, random, mymap->buffsize);
-
+			getpid(),id, rr, mymap->buffsize);
+      		}
 		sem_post (&(mymap->buffmutex));
 	}
 }

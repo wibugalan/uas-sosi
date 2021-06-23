@@ -81,7 +81,7 @@ int rehat_acak(long max_mdetik) {
    tim.tv_sec  = ndetik   / 1000L;
    tim.tv_nsec = ndetik   % 1000L * 1000000L;
    nanosleep(&tim,NULL);
-   return tim.tv_nsec;
+   return tim.tv_nsec / 1000000L;
 } 
 
 /* globalID ********************************************* */

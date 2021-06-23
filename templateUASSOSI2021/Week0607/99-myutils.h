@@ -30,7 +30,7 @@ void jalankan_trit (void);            // menjalankan dan menunggu hasil dari
                                       // "daftar_trit"
 void beberes_trit  (char* pesan);     // beberes menutup "jalankan_trit"
 
-void rehat_acak    (long max_mdetik); // istirohat acak "0-max_mdetik" (ms)
+int rehat_acak    (long max_mdetik); // istirohat acak "0-max_mdetik" (ms)
 
 void init_globalID (void);            // globalID
 int getADDglobalID (int id);          // globalID[id]++

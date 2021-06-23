@@ -55,7 +55,21 @@ void beberes_trit(char* pesan) {
 /* REHAT **********************************************/
 int  pertamax    = TRUE;
 
-void rehat_acak(long max_mdetik) {
+// void rehat_acak(long max_mdetik) {
+//    struct timespec tim;
+//    long            ndetik;
+  
+//    if (pertamax) {
+//       pertamax = FALSE;
+//       srandom((unsigned int) time (NULL));
+//    }
+//    ndetik      = random() % max_mdetik;
+//    tim.tv_sec  = ndetik   / 1000L;
+//    tim.tv_nsec = ndetik   % 1000L * 1000000L;
+//    nanosleep(&tim,NULL);
+// } 
+
+int rehat_acak(long max_mdetik) {
    struct timespec tim;
    long            ndetik;
   
@@ -67,6 +81,7 @@ void rehat_acak(long max_mdetik) {
    tim.tv_sec  = ndetik   / 1000L;
    tim.tv_nsec = ndetik   % 1000L * 1000000L;
    nanosleep(&tim,NULL);
+   return tim.tv_nsec;
 } 
 
 /* globalID ********************************************* */

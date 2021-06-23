@@ -25,8 +25,6 @@ typedef  struct {
    sem_t  buffmutex;
    int    buffsize;
    int    buffer[100];
-   
-   
 } myshare;
 
 myshare* mymap;

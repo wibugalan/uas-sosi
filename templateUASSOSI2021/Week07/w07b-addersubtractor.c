@@ -13,19 +13,15 @@ sem_t addsub_sem;
 int n;
 int idmaster = 0;
 int sharedInt = 0;
-int counter = 1;
+int counter = 0;
 int var_add, var_sub;
 
 void* adder (void* a) {
-	sem_post(&obs_sem);
 	int id;
 	id = ++idmaster;
 	while(TRUE){
-		if (++counter == 2*n) {
-			sem_post(&obs_sem);
-			counter = 0;
-		}
-		//printf("%d dan %d", counter, 2*n);
+		// printf("%d\n", counter);
+		//printf("%d dan %d\n", counter, 2*n);
 		fflush(NULL);
 		rehat_acak(T_REHAT);
 		sem_wait(&addsub_sem);
@@ -33,19 +29,19 @@ void* adder (void* a) {
 		sharedInt += var_add;
 		printf("Thread=[%3.3d] ADD [%3.3d]  CURENT VALUE  [%3.3d]\n", id, var_add, sharedInt);
 		sem_post(&addsub_sem);
+		if (++counter == 2*n) {
+			sem_post(&obs_sem);
+			counter = 0;
+		}
 	}
 }
 
 
 void* substractor (void* a) {
-	sem_post(&obs_sem);
 	int id;
 	id = ++idmaster;
 	while(TRUE){
-		if (++counter == 2*n) {
-			sem_post(&obs_sem);
-			counter = 0;
-		}
+		// printf("%d\n", counter);
 		//printf("%d dan %d\n", counter, 2*n);
 		fflush(NULL);
 		rehat_acak(T_REHAT);
@@ -54,28 +50,36 @@ void* substractor (void* a) {
 		sharedInt -= var_sub;
 		printf("Thread=[%3.3d] SUB [%3.3d]  CURENT VALUE  [%3.3d]\n", id, var_sub, sharedInt);
 		sem_post(&addsub_sem);
+		if (++counter == 2*n) {
+			sem_post(&obs_sem);
+			counter = 0;
+		}
 	}
 }
 
 
 void* observer (void* a) {
-	sem_wait(&obs_sem);
 	int id;
 	id = ++idmaster;
-	printf("Thread=[%3.3d] OBS ---  CURENT VALUE  [%3.3d]\n", id, sharedInt);
-	sem_post(&addsub_sem);
+	while(TRUE) {
+		fflush(NULL);
+		rehat_acak(T_REHAT);
+		sem_wait(&obs_sem);
+		printf("Thread=[%3.3d] OBS ---    CURENT VALUE  [%3.3d]\n", 				id, sharedInt);
+		sem_post(&addsub_sem);
+	}
 	
 }
 
 int main(int argc, char * argv[])
 {  
 
-
    printf("Hello... \n");
    printf("Please input a positive number (N) : ");
    scanf("%d", &n);
    printf("The input N is : %d \n", n);
-
+   sem_init(&obs_sem, 0, 1);
+   
    daftar_trit(adder);
    daftar_trit(substractor);
    daftar_trit(observer);
